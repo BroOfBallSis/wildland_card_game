@@ -5,13 +5,8 @@ import importlib
 
 
 class BaseCard:
-    def __init__(self) -> None:
-        self.cid = "000000"
-        self.name_cn = "卡牌模板"
-        self.color_cn = "红"
-        self.color_font = "\033[33m"
-        self.time_cost = 0
-        self.conditions = []
+    def __init__(self, card_value) -> None:
+        self.load(card_value)
 
     def print(self):
         print(

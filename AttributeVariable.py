@@ -1,60 +1,76 @@
+from enum import Enum
+
+
+class AttributeName(Enum):
+    HEALTH = "生命值"
+    DELAY = "滞后值"
+    TOUGHNESS = "韧性值"
+
+
 class AttributeVariable:
-    def __init__(self, max_value, current_value=None):
-        self.name_cn = "属性值"
-        self.temp_value = 0
-        self.max_value = max_value
-        if not current_value:
-            self.current_value = max_value
+    def __init__(
+        self,
+        max_value: int,
+        current_value: int = None,
+        name_cn=AttributeName.HEALTH.value,
+    ):
+        self.name_cn = name_cn
+        self._max_value = max_value
+        self._current_value = max_value if current_value is None else current_value
+        self._temp_value = 0
 
-    def increase(self, value):
-        """
-        增加属性值的方法。
-        :param value: 要增加的数值。
-        """
-        self.temp_value += value
+    @property
+    def current_value(self) -> int:
+        return self._current_value
 
-    def decrease(self, value):
-        """
-        减少属性值的方法。
-        :param value: 要减少的数值。
-        """
-        self.temp_value -= value
+    @current_value.setter
+    def current_value(self, value: int):
+        self._current_value = value
+
+    @property
+    def max_value(self) -> int:
+        return self._max_value
+
+    @max_value.setter
+    def max_value(self, value: int):
+        if value > 0:
+            self._max_value = value
+        else:
+            raise ValueError("最大值必须大于0")
+
+    def increase(self, value: int):
+        self._temp_value += value
+
+    def decrease(self, value: int):
+        self._temp_value -= value
 
     def settle(self):
-        self.current_value += self.temp_value
-        self.temp_value = 0
+        self._current_value += self._temp_value
+        self._temp_value = 0
 
-    def is_full(self):
-        """
-        检查属性值是否达到最大值。
-        :return: 如果达到最大值返回True，否则返回False。
-        """
-        return self.current_value >= self.max_value
+    def is_full(self) -> bool:
+        return self._current_value >= self._max_value
 
-    def is_empty(self):
-        """
-        检查属性值是否为0。
-        :return: 如果为0返回True，否则返回False。
-        """
-        return self.current_value <= 0
+    def full(self):
+        self._current_value = self._max_value
 
-    def __str__(self):
-        return f"{self.name_cn}:{self.current_value}/{self.max_value}"
+    def is_empty(self) -> bool:
+        return self._current_value <= 0
+
+    def __str__(self) -> str:
+        return f"{self._name_cn}:{self._current_value}/{self._max_value}"
 
 
 class HealthAttribute(AttributeVariable):
     def __init__(self, max_value, current_value=None):
-        super().__init__(max_value, current_value)
-        self.name_cn = "生命值"
+        super().__init__(max_value, current_value, AttributeName.HEALTH)
 
 
 class DelayAttribute(AttributeVariable):
     def __init__(self, max_value, current_value=None):
-        super().__init__(max_value, current_value)
-        self.name_cn = "滞后值"
+        super().__init__(max_value, current_value, AttributeName.DELAY)
 
 
 class ToughnessAttribute(AttributeVariable):
     def __init__(self, max_value, current_value=None):
-        super().__init__(max_value, current_value)
-        self.name_cn = "韧性值"
+        super().__init__(max_value, current_value, AttributeName.TOUGHNESS)
