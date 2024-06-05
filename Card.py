@@ -8,7 +8,7 @@ class BaseCard:
     def __init__(self, card_value) -> None:
         self.load(card_value)
 
-    def print(self):
+    def print_card_info(self):
         print(
             f"{self.color_font}{self.name_cn}  {self.color_cn}\033[0m  时间:{self.time_cost}  效果:",
             end="",
@@ -26,8 +26,9 @@ class BaseCard:
     def load(self, card_value):
         self.name_cn = card_value["name_cn"]
         self.color_cn = card_value["color_cn"]
+        self.color_font = card_value["color_font"]
         self.time_cost = card_value["time_cost"]
-        self.conditions.clear()
+        self.conditions = []
         for condition in card_value["conditions"]:
             self._load_condition(condition)
 

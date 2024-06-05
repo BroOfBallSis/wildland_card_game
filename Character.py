@@ -3,6 +3,7 @@ from Card import *
 from Definition import *
 import random
 from typing import List, Optional
+from CardLibrary import *
 
 
 class BaseCharacter:
@@ -15,7 +16,7 @@ class BaseCharacter:
         self.playing_card = None
         self.battle_card_manager = BattleCardManager(self)
 
-        self.decklist = []
+        self.decklist = [c000001, c000001, c000002, c000002, c000003, c000003]
 
     def battle_init(self):
         self.health.full()
@@ -35,7 +36,10 @@ class BattleCardManager:
 
     def battle_init(self):
         self.init_draw_pile()
+        self.shuffle_draw_pile()
         self.draw_hand_pile_to_handsize()
+        for card in self.hand_pile:
+            card.print_card_info()
 
     def init_draw_pile(self):
         # 初始化抽牌堆，假设 BaseCard 构造函数接受一个 card_value 参数
@@ -51,7 +55,7 @@ class BattleCardManager:
     def draw_card(self, number: int = 1) -> List[BaseCard]:
         if number < 0:
             raise ValueError("Cannot draw a negative number of cards.")
-        
+
         drawn_cards = []
 
         while number > 0 and (self.draw_pile or self.discard_pile):
@@ -65,10 +69,10 @@ class BattleCardManager:
                 # 如果填充后仍然没有卡牌可抽，退出循环
                 if not self.draw_pile:
                     break
-        
+
         # 将抽取的卡牌添加到手牌堆中
         self.hand_pile.extend(drawn_cards)
-        
+
         # 返回实际抽取的卡牌列表
         return drawn_cards
 

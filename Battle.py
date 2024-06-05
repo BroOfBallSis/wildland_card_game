@@ -3,18 +3,6 @@ from Card import *
 from CardLibrary import *
 from Character import *
 
-card = BaseCard()
-card.load(c000001)
-card.print()
-card.load(c000002)
-card.print()
-player = BaseCharacter()
-print(player.health)
-card.execute(player, player)
-print(player.health)
-player.health.settle()
-print(player.health)
-
 
 class BaseBattle:
     def __init__(self, player_list) -> None:
@@ -36,3 +24,9 @@ class BaseBattle:
     def init_battle(self):
         for player in self.player_list:
             player.battle_init()
+
+
+if __name__ == "__main__":
+    player = BaseCharacter()
+    battle = BaseBattle([player])
+    battle.battle_workflow()
