@@ -8,12 +8,15 @@ from CardLibrary import *
 
 class BaseCharacter:
     def __init__(self) -> None:
+        # 状态
         self.health = HealthAttribute(max_value=50)
         self.toughness = ToughnessAttribute(max_value=6)
         self.delay = DelayAttribute(max_value=6, current_value=DEFAULT_DELAY)
         self.handsize = 4
+        self.current_color = CARD_TYPE_GREEN
+
         self.status_list = []
-        self.playing_card = None
+        self.playing_card:'BaseCard' = None
         self.battle_card_manager = BattleCardManager(self)
 
         self.decklist = [c000001, c000001, c000002, c000002, c000003, c000003]

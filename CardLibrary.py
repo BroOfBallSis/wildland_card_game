@@ -43,6 +43,13 @@ c000003 = {
                 {"effect_class": "CauseHealthHurtEffect", "args": {"value": 5}},
                 {"effect_class": "CauseToughnessHurtEffect", "args": {"value": 2}},
             ],
+        },
+        {
+            "condition_class": "StartCondition",
+            "args": {"value": CARD_TYPE_GREEN},
+            "effects": [
+                {"effect_class": "CostTimeEffect", "args": {"value": 1}},
+            ],
         }
     ],
 }

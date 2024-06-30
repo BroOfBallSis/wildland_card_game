@@ -61,3 +61,21 @@ class DelayCondition(BaseCondition):
 
         # Return True if the current status matches the condition value
         return current_status == self.value
+
+    def __str__(self) -> str:
+        # 返回效果的字符串表示，用于打印效果描述
+        return f"{self.value}"
+    
+class StartCondition(BaseCondition):
+    def __init__(self, *args, **kwargs) -> None:
+        # 调用基类的构造函数
+        super().__init__(*args, **kwargs)
+        # 根据传入的参数初始化条件值
+        self.value = kwargs["value"]
+
+    def judge(self, source: 'BaseCharacter', target: 'BaseCharacter') -> bool:
+        return source.current_color == self.value
+    
+    def __str__(self) -> str:
+        # 返回效果的字符串表示，用于打印效果描述
+        return f"启动{COLOR_FONT[self.value]}{COLOR_NAME_CN[self.value]}\033[0m"

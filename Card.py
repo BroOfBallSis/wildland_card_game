@@ -11,17 +11,17 @@ class BaseCard:
 
     def print_card_info(self):
         print(
-            f"{self.color_font}{self.name_cn}  {self.color_cn}\033[0m  时间:{self.time_cost}  效果:",
+            f"{self.name_cn}  {self.color_font}{self.color_cn}\033[0m  时间:{self.time_cost}  ",
             end="",
         )
         for condition in self.conditions:
-            print(f"{condition}", end="")
+            print(f"{condition}", end="(")
             for index, effect in enumerate(condition.effects):
                 # 检查是否是最后一个effect
                 if index < len(condition.effects) - 1:
                     print(f"{effect}", end=", ")
                 else:
-                    print(f"{effect};\t", end="")
+                    print(f"{effect})", end="; ")
         print("")
 
     def load(self, card_value):
