@@ -1,6 +1,7 @@
 from Definition import *
 from Character import *
 from Effect import *
+from Condition import *
 import importlib
 
 
@@ -25,8 +26,9 @@ class BaseCard:
 
     def load(self, card_value):
         self.name_cn = card_value["name_cn"]
-        self.color_cn = card_value["color_cn"]
-        self.color_font = card_value["color_font"]
+        self.color = card_value["color"]
+        self.color_cn = COLOR_NAME_CN[self.color]
+        self.color_font = COLOR_FONT[self.color]
         self.time_cost = card_value["time_cost"]
         self.conditions = []
         for condition in card_value["conditions"]:
@@ -35,9 +37,9 @@ class BaseCard:
     def _load_condition(self, condition_config):
         # 动态地实例化Condition子类
         condition_class = getattr(
-            importlib.import_module("Effect"), condition_config["condition_class"]
+            importlib.import_module("Condition"), condition_config["condition_class"]
         )
-        condition_instance = condition_class(**condition_config["args"])
+        condition_instance: BaseCondition = condition_class(**condition_config["args"])
         for effect in condition_config["effects"]:
             condition_instance.load_effect(effect)
         self.conditions.append(condition_instance)

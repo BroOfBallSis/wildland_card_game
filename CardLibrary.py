@@ -1,7 +1,8 @@
+from Definition import *
+
 c000001 = {
     "name_cn": "刀剑突刺",
-    "color_cn": "黄",
-    "color_font": "\33[0;33m",
+    "color": CARD_TYPE_YELLOW,
     "time_cost": 3,
     "conditions": [
         {
@@ -16,8 +17,7 @@ c000001 = {
 
 c000002 = {
     "name_cn": "刀剑挥砍",
-    "color_cn": "黄",
-    "color_font": "\33[0;33m",
+    "color": CARD_TYPE_YELLOW,
     "time_cost": 5,
     "conditions": [
         {
@@ -33,8 +33,7 @@ c000002 = {
 
 c000003 = {
     "name_cn": "刀剑劈砍",
-    "color_cn": "红",
-    "color_font": "\33[0;31m",
+    "color": CARD_TYPE_RED,
     "time_cost": 6,
     "conditions": [
         {

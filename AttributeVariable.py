@@ -1,10 +1,4 @@
-from enum import Enum
-
-
-class AttributeName(Enum):
-    HEALTH = "生命值"
-    DELAY = "滞后值"
-    TOUGHNESS = "韧性值"
+from Definition import *
 
 
 class AttributeVariable:
@@ -12,7 +6,7 @@ class AttributeVariable:
         self,
         max_value: int,
         current_value: int = None,
-        name_cn=AttributeName.HEALTH.value,
+        name_cn=AttributeName.BASE,
     ):
         self.name_cn = name_cn
         self._max_value = max_value
